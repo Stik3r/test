@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaveTimeRepository extends JpaRepository<SaveTimeEntity, Long> {
-    SaveTimeEntity findOneOrderByIdDesc();
+    SaveTimeEntity findFirstByOrderByIdDesc();
 }

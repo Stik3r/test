@@ -11,7 +11,7 @@ public class MainService {
     SaveTimeRepository saveTimeRepository;
 
     public String getSaveTime(){
-        String lastTime = saveTimeRepository.findOneOrderByIdDesc().getSavedTime();
+        String lastTime = saveTimeRepository.findFirstByOrderByIdDesc().getSavedTime();
         Long count = saveTimeRepository.count();
         return String.format("Последнее сохраненное время %s общее количество %d", lastTime, count);
     }
