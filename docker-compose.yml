@@ -4,7 +4,7 @@ services:
   postgres-image:
     build:
       context: .
-      dockerfile: /postgres/Dockerfile
+      dockerfile: postgres/Dockerfile
     container_name: postgres_db
     restart: always
     environment:
