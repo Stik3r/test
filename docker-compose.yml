@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres-image:
+    build:
+      context: .
+      dockerfile: /postgres/Dockerfile
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: system
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java_app
+    depends_on:
+      - postgres-image
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-image:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: system
+
+volumes:
+  db_data:
