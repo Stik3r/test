@@ -15,8 +15,11 @@ public class SaveTask {
 
     @Scheduled(fixedRate = 1000)
     public void saveDate(){
-        SaveTimeEntity saveTimeEntity = new SaveTimeEntity();
-        saveTimeEntity.setSavedTime((new Date()).toString());
-        saveTimeRepository.save(saveTimeEntity);
+        long count = saveTimeRepository.count();
+        if(count < 100){
+            SaveTimeEntity saveTimeEntity = new SaveTimeEntity();
+            saveTimeEntity.setSavedTime((new Date()).toString());
+            saveTimeRepository.save(saveTimeEntity);
+        }
     }
 }
